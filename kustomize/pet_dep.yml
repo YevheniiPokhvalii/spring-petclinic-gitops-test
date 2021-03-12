@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jretest
+spec:
+  selector:
+    matchLabels:
+      app: jretest
+  replicas: 1
+  template:
+    metadata:
+      name: jretest
+      labels:
+        app: jretest
+    spec:
+      containers:
+      - name: jretest
+        image: eugenedemo1/pet-clinic-maven-test:main-1d08994
+        ports:
+        - containerPort: 80
