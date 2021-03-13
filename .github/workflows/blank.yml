@@ -23,3 +23,17 @@ jobs:
         with:
           ref: ${{ github.event.client_payload.ref }}
       - run: echo gcr.io/${{ secrets.GCP_PROJECT_ID }}/helloworld:${{ github.event.client_payload.sha }}
+
+  change-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Change something
+        run: |
+          find . -type f -name "pet_dep.yml" -print0 | xargs -0 sed -i 's/^image: [A-Za-z0-9_]*/image: "gcr.io/${{ secrets.GCP_PROJECT_ID }}/helloworld:${{ github.event.client_payload.sha }}"/g'
+      - name: Commit and push changes
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: Replaced foo with bar
