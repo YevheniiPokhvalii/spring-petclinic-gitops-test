@@ -1,39 +1,20 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI Repository Dispatch
-
-# Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-#  schedule:
-    # * is a special character in YAML so you have to quote this string
-#    - cron:  '*/15 * * * *'
-
-  repository_dispatch:
-    types: [kubernetes-event]
-jobs:
-  myEvent:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.client_payload.ref }}
-      - run: echo gcr.io/${{ secrets.GCP_PROJECT_ID }}/helloworld:${{ github.event.client_payload.sha }}
-
-  change-and-push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Change something
-        run: |
-          find . -type f -name "pet_dep.yml" -print0 | xargs -0 sed -i 's/^"image: [A-Za-z0-9_]*"/"image: hello"/g'
-      - name: Commit and push changes
-        uses: devops-infra/action-commit-push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_message: Replaced foo with bar
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jretest
+spec:
+  selector:
+    matchLabels:
+      app: jretest
+  replicas: 1
+  template:
+    metadata:
+      name: jretest
+      labels:
+        app: jretest
+    spec:
+      containers:
+      - name: jretest
+        image: eugenedemo1/pet-clinic-maven-test:main-1d08994
+        ports:
+        - containerPort: 80
