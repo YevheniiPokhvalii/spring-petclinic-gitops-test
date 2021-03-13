@@ -6,8 +6,9 @@ metadata:
     run: jretest
 spec:
   ports:
-  - port: 8080
+  - port: 7000
     targetPort: 8080
+    nodePort: 30036
     protocol: TCP
   selector:
     run: jretest
