@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Change something
         run: |
-          find . -type f -name "pet_dep.yml" -print0 | xargs -0 sed -i 's/^image: [A-Za-z0-9_]*/image: hello/g'
+          find . -type f -name "pet_dep.yml" -print0 | xargs -0 sed -i 's/^"image: [A-Za-z0-9_]*"/"image: hello"/g'
       - name: Commit and push changes
         uses: devops-infra/action-commit-push@master
         with:
