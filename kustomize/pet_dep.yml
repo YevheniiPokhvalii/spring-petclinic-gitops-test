@@ -17,7 +17,7 @@ spec:
       - name: jretest
         image: gcr.io/git-ops-automation/helloworld:
       imagePullSecrets:
-      - name: regcred
+        - name: regcred
         ports:
         - containerPort: 80
 
