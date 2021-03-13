@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: jretest
-        image: eugenedemo1/pet-clinic-maven-test:main-1d08994
+        image: gcr.io/git-ops-automation/helloworld:
         ports:
         - containerPort: 80
