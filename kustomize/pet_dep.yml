@@ -17,6 +17,6 @@ spec:
       - name: gcr-secret
       containers:
       - name: jretest
-        image: gcr.io/git-ops-automation/helloworld:e60c28e8f3004985e3d36700ea8f5cc187a1bf9d
+        image: gcr.io/git-ops-automation/helloworld:5d5b15184e403c77c0688b43696525f06fa3d820
         ports:
         - containerPort: 8080
